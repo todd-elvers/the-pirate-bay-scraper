@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="groovy-1.7.11">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.codehaus.groovy/groovy/1.7.11/jar/bcfef2075bb32d1c3e49bb33d706e8657e77d3e1/groovy-1.7.11.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/artifacts-26/filestore/org.codehaus.groovy/groovy/1.7.11/source/bd27bb8997755ee70465c4494a22f7fab15a5cd3/groovy-1.7.11-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,32 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+version = "${version}"
+applicationName = 'The Pirate Bay Scraper'
+mainClassName = 'tpbScraper.TPBScraper'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'){
+        exclude group: 'org.codehaus.groovy'
+    }
+	compile 'commons-io:commons-io:2.4'
+    compile('org.codehaus.gpars:gpars:1.2.1'){
+        exclude group: 'org.codehaus.groovy'
+    }
+    compile 'org.codehaus.groovy:groovy-all:2.2.0'
+}
+
+task uberjar(type: Jar, dependsOn:[':compileGroovy']) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}

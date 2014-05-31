@@ -4,7 +4,6 @@ import tpbScraper.domain.TpbsProperties
 
 class ScraperStatusPrinter {
 
-    //TODO: Fix hard-coding the version number into this print statement
     static void printScrapingStatus(TpbsProperties properties, numPagesDownloaded) {
         String version = PropertiesReader.readAppProperty("version")
         if (numPagesDownloaded == 0) {

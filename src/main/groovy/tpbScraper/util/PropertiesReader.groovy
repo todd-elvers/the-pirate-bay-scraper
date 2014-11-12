@@ -1,6 +1,7 @@
 package tpbScraper.util
 
 import org.apache.commons.io.FileUtils
+import org.apache.commons.io.IOUtils
 
 class PropertiesReader {
     static final PROPERTIES_FILE_NAME = "gradle.properties"
@@ -21,21 +22,13 @@ class PropertiesReader {
         return propFileInputStream
     }
 
-    static String readPropertyFromFile(String propName, File propFile) {
-        try {
-            return loadPropertiesFromInputStream(FileUtils.openInputStream(propFile))[propName]
-        } catch (ignored) {
-            throw new RuntimeException("Unable to read from properties file.")
-        }
-    }
-
     private static Properties loadPropertiesFromInputStream(InputStream inputStream) {
         try {
             def properties = new Properties()
             properties.load(inputStream)
             return properties
         } finally {
-            inputStream.close()
+            IOUtils.closeQuietly(inputStream)
         }
     }
 }

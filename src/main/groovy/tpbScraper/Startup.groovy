@@ -29,7 +29,7 @@ class Startup {
                     tableLayout() {
                         tr {
                             td { label("Media type:   ", horizontalAlignment: SwingConstants.CENTER) }
-                            td { comboBox(focusable: false, id: 'mediaTypeField', items: MediaType.values()) }
+                            td { comboBox(id: 'mediaTypeField', items: MediaType.values()) }
                         }
                         tr {
                             td(colfill: false, rowfill: false) { label("Seeder threshold:   ", horizontalAlignment: SwingConstants.CENTER) }

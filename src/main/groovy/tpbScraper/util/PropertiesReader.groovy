@@ -9,7 +9,7 @@ class PropertiesReader {
         try {
             return loadPropertiesFromInputStream(resolveAppPropFileInputStream())[propName]
         } catch (ignored) {
-            throw new RuntimeException("Unable to read '${propName}' from g2exe's properties file.")
+            throw new RuntimeException("Unable to read '${propName}' from TPBS's properties file.")
         }
     }
 

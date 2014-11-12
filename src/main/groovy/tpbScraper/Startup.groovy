@@ -15,26 +15,28 @@ class Startup {
         }
     }
 
+    //TODO: Add input validation & validation messages
+    //TODO: Move this to its own class
     private static void promptUserForInputAndWhenScrapeIsPressed(Closure tpbScraperLogic){
         TpbsProperties tpbsProperties = new TpbsProperties()
         new SwingBuilder().edt {
             lookAndFeel 'system'
 
-            frame(id: 'mainWindow', title: 'The Pirate Bay Scraper (TPBS)', size: [300, 215], locationRelativeTo: null, defaultCloseOperation: JFrame.EXIT_ON_CLOSE, show: true, resizable: false) {
+            frame(id: 'mainWindow', title: 'The Pirate Bay Scraper (TPBS)', size: [300, 180], locationRelativeTo: null, defaultCloseOperation: JFrame.EXIT_ON_CLOSE, show: true, resizable: false) {
                 borderLayout()
 
                 panel(id: 'inputFields', constraints: BorderLayout.CENTER, border: compoundBorder([emptyBorder(10), titledBorder('Options')])) {
-                    tableLayout {
+                    tableLayout() {
                         tr {
-                            td { label("Media type:", horizontalAlignment: SwingConstants.CENTER) }
+                            td { label("Media type:   ", horizontalAlignment: SwingConstants.CENTER) }
                             td { comboBox(focusable: false, id: 'mediaTypeField', items: MediaType.values()) }
                         }
                         tr {
-                            td { label("Seeder threshold:", horizontalAlignment: SwingConstants.CENTER) }
-                            td { textField(id: 'seederThresholdField', columns: 5, text: tpbsProperties.seederThreshold) }
+                            td(colfill: false, rowfill: false) { label("Seeder threshold:   ", horizontalAlignment: SwingConstants.CENTER) }
+                            td(colfill: false, rowfill: false) { textField(id: 'seederThresholdField', columns: 5, text: tpbsProperties.seederThreshold) }
                         }
                         tr {
-                            td { label("# pages to crawl:", horizontalAlignment: SwingConstants.CENTER) }
+                            td { label("# pages to crawl:   ", horizontalAlignment: SwingConstants.CENTER) }
                             td { textField(id: 'numPagesToCrawlField', columns: 2, text: tpbsProperties.numPagesToCrawl) }
                         }
                     }

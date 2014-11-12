@@ -39,11 +39,12 @@ task buildExe(type: Exec, dependsOn: [':buildFatJar']) {
     commandLine "g2exe", "-f", "$tpbsJarFile", "-xms", "256", "-xmx", "400"
 }
 
-task copyExeToSysToolsDir(type: Copy) {
+task copyExeToSysTools(type: Copy) {
     doFirst {
         final tpbsExeFile = new File(buildDir, "libs/tpbs.exe")
         if(!tpbsExeFile.exists()){
             println "The file '$tpbsExeFile.name' is missing from the build/libs directory. Please build again."
+            return null
         }
     }
 

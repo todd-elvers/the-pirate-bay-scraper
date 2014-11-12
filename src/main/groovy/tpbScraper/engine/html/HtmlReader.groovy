@@ -9,14 +9,12 @@ class HtmlReader {
 
     StringBuilder readInHTML(String url) {
         StringBuilder html
-        HTTPBuilder webpage
 
         int numberOfAttempts = 0
         while (!html && numberOfAttempts < 3) {
             try {
                 numberOfAttempts++
-                webpage = new HTTPBuilder(url)
-                html = readHTMLFromWebpage(webpage)
+                html = readHTMLFromWebpage(url)
             } catch (all) {
                 println "[HtmlReader] FAILURE: ${all.getMessage()}"
             }
@@ -25,16 +23,16 @@ class HtmlReader {
         if (numberOfAttempts == 3) {
             println "[HtmlReader] FAILURE: 3 failed attempts to read URL"
         } else {
-            println " SUCCESS"
+//            println " SUCCESS"
         }
 
         html ?: new StringBuilder()
     }
 
-    private StringBuilder readHTMLFromWebpage(HTTPBuilder webpage) {
+    StringBuilder readHTMLFromWebpage(String url) {
         StringBuilder html = new StringBuilder()
 
-        webpage.request(GET, TEXT) {
+        new HTTPBuilder(url).request(GET, TEXT) {
             headers.'User-Agent' = "Mozilla/5.0 Firefox/3.0.4"
             headers.Accept = 'text/plain'
 

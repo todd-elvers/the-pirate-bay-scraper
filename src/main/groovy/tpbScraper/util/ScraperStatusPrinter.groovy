@@ -4,7 +4,7 @@ import tpbScraper.domain.TpbsProperties
 
 class ScraperStatusPrinter {
 
-    static void printScrapingStatus(TpbsProperties properties, numPagesDownloaded) {
+    static void printScrapingStatus(TpbsProperties properties, int numPagesDownloaded) {
         String version = PropertiesReader.readAppProperty("version")
         if (numPagesDownloaded == 0) {
             println "TPBC - The Pirate Bay Crawler (v$version)\n\n" +
@@ -13,9 +13,9 @@ class ScraperStatusPrinter {
                     "\tSeeder Threshold: ${properties.seederThreshold}\n" +
                     "\tNumber of pages to crawl back: ${properties.numPagesToCrawl}"
             println "\nCrawling..."
-            print "Reading page ${numPagesDownloaded + 1}...".padRight(19)
+            print "Reading page ${numPagesDownloaded + 1}...\r".padRight(19)
         } else {
-            print "Reading page ${numPagesDownloaded + 1}...".padRight(19)
+            print "Reading page ${numPagesDownloaded + 1}...\r".padRight(19)
         }
     }
 

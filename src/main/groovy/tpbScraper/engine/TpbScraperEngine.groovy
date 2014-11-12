@@ -10,22 +10,20 @@ import static tpbScraper.engine.BrowserFileHandler.openFileInChrome
 import static tpbScraper.engine.BrowserFileHandler.writeResultPageFilesToDirIfTheyAreMissing
 
 class TpbScraperEngine {
-    private final TpbsProperties properties
     private final TableRowScraper scraper = new TableRowScraper()
-    private final TableRowWriter writer
+    private final TableRowWriter writer = new TableRowWriter()
+    private final TpbsProperties tpbcProperties
 
-    //TODO: Possibly refactor TableRowWriter to not require an instance of TpbsProperties
-    TpbScraperEngine(TpbsProperties properties) {
-        this.properties = properties
-        writer = new TableRowWriter(properties)
+    TpbScraperEngine(TpbsProperties tpbcProperties) {
+        this.tpbcProperties = tpbcProperties
     }
 
     void scrapeTheBrowseDirectory() {
-        writeResultPageFilesToDirIfTheyAreMissing(properties.dataDirectory)
+        writeResultPageFilesToDirIfTheyAreMissing(tpbcProperties.dataDirectory)
 
         StringBuilder tableRowsHTML = scrapeTableRowsHTML()
         if (tableRowsHTML.length() > 0) {
-            writer.writeTableRowsToResultsPage(tableRowsHTML);
+            writer.writeTableRowsToResultsPage(tableRowsHTML, tpbcProperties)
             openFileInChrome(writer.resultsPageFile)
         } else {
             println "No results found."
@@ -38,15 +36,15 @@ class TpbScraperEngine {
         HtmlReader reader = new HtmlReader()
 //        GParsPool.withPool {
 //            generateURLsToCrawl().eachWithIndexParallel { String tpbURL, index ->
-//                ScraperStatusPrinter.printScrapingStatus(properties, index)
+//                ScraperStatusPrinter.printScrapingStatus(tpbcProperties, index)
 //                StringBuilder html = reader.readInHTML(tpbURL)
-//                tableRowsHTML.append(scraper.scrapeTableRowElementsFromHTML(html, properties.seederThreshold))
+//                tableRowsHTML.append(scraper.scrapeTableRowElementsFromHTML(html, tpbcProperties.seederThreshold))
 //            }
 //        }
         generateURLsToCrawl().eachWithIndex { String tpbURL, index ->
-            ScraperStatusPrinter.printScrapingStatus(properties, index)
+            ScraperStatusPrinter.printScrapingStatus(tpbcProperties, index)
             StringBuilder html = reader.readInHTML(tpbURL)
-            tableRowsHTML.append(scraper.scrapeTableRowElementsFromHTML(html, properties.seederThreshold))
+            tableRowsHTML.append(scraper.scrapeTableRowElementsFromHTML(html, tpbcProperties.seederThreshold))
         }
         println "Crawling completed."
 
@@ -54,8 +52,8 @@ class TpbScraperEngine {
     }
 
     private List<String> generateURLsToCrawl() {
-        (0..< properties.numPagesToCrawl).collect { int pageNum ->
-            "${properties.tpbUrl}/browse/${properties.mediaType.getUrlCode()}/${pageNum}/3"
+        (0..<tpbcProperties.numPagesToCrawl).collect { int pageNum ->
+            "${tpbcProperties.tpbUrl}/browse/${tpbcProperties.mediaType.getUrlCode()}/${pageNum}/3"
         }
     }
 }

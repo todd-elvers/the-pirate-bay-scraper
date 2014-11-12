@@ -14,6 +14,12 @@ class TpbsProperties {
     int seederThreshold = 300
 
     /**
+     * Number of pages to crawl.
+     * NOTE: The Pirate Bay limits the number of pages a user can browse (or crawl) to 100
+     */
+    int numPagesToCrawl = 30
+
+    /**
      * The Pirate Bay's fully qualified URL
      */
     String tpbUrl = "http://www.thepiratebay.se"
@@ -24,12 +30,6 @@ class TpbsProperties {
      * The default directory is %APPDATA%/TPBScraper
      */
     String dataDirectory = new File(System.getenv("APPDATA"), "TPBScraper").absolutePath
-
-    /**
-     * Number of pages to crawl.
-     * NOTE: The Pirate Bay limits the number of pages a user can browse (or crawl) to 100
-     */
-    int numPagesToCrawl = 30
 
     /**
      * This function must return a uniquely identifying string, because TPBScraper will overwrite

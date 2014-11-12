@@ -15,18 +15,30 @@ dependencies {
     compile('org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'){
         exclude group: 'org.codehaus.groovy'
     }
-	compile 'commons-io:commons-io:2.4'
     compile('org.codehaus.gpars:gpars:1.2.1'){
         exclude group: 'org.codehaus.groovy'
     }
+    compile 'commons-io:commons-io:2.4'
     compile 'org.codehaus.groovy:groovy-all:2.2.0'
+
+    //TEMP
+    compile 'org.codehaus.groovy:groovy-test:2.2.0'
+    runtime "commons-cli:commons-cli:1.2"
 }
 
-task uberjar(type: Jar, dependsOn:[':compileGroovy']) {
+task buildFatJar(type: Jar, dependsOn:[':compileGroovy', ':compileJava', ':processResources']) {
+    description 'Copies all classes, resources, and jar dependencies into one executable jar'
     from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.resourcesDir)
     from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+    archiveName 'tpbs.jar'
 
     manifest {
         attributes 'Main-Class': mainClassName
     }
+}
+
+task buildExe(type: Exec, dependsOn: [':buildFatJar']) {
+    final BGS_PRG_JAR_FILE = new File(buildDir, 'libs/BGS Performance Report Generator.jar')
+    commandLine "g2exe", "--fileToConvert", "$BGS_PRG_JAR_FILE", "-xms", "256", "-xmx", "400"
 }

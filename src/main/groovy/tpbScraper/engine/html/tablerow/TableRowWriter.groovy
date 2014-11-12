@@ -5,34 +5,29 @@ import tpbScraper.domain.TpbsProperties
 
 class TableRowWriter {
 
-    private TpbsProperties properties
     File resultsPageFile
 
-    TableRowWriter(TpbsProperties properties) {
-        this.properties = properties
-    }
-
-    void writeTableRowsToResultsPage(StringBuilder tableRowsHtml) {
+    void writeTableRowsToResultsPage(StringBuilder tableRowsHtml, TpbsProperties properties) {
         println "Writing results page to disk."
 
         //TODO: This should be extracted to a TableRowFormatter, it's scope creep
         StringBuilder resultsPageHtml
-        resultsPageHtml = combineTableRowsWithTemplate(tableRowsHtml, getResultsPageTemplate())
-        resultsPageHtml = fixAllLinksToWorkLocally(resultsPageHtml)
+        resultsPageHtml = combineTableRowsWithTemplate(tableRowsHtml, getResultsPageTemplate(properties))
+        resultsPageHtml = fixAllLinksToWorkLocally(resultsPageHtml, properties)
 
-        writeResultsPageHtmlToDisk(resultsPageHtml)
+        writeResultsPageHtmlToDisk(resultsPageHtml, properties)
     }
 
-    private String getResultsPageTemplate() {
+    private static String getResultsPageTemplate(TpbsProperties properties) {
         File resultsPageTemplateFile = new File(properties.dataDirectory, "/template/TPBS Results Page - Template.htm")
         FileUtils.readFileToString(resultsPageTemplateFile)
     }
 
-    private StringBuilder combineTableRowsWithTemplate(StringBuilder tableRowsHtml, String resultsPageTemplate) {
+    private static StringBuilder combineTableRowsWithTemplate(StringBuilder tableRowsHtml, String resultsPageTemplate) {
         new StringBuilder(resultsPageTemplate.replaceFirst("<!-- TABLE ROWS HTML HERE -->", tableRowsHtml.toString()))
     }
 
-    private StringBuilder fixAllLinksToWorkLocally(StringBuilder html) {
+    private static StringBuilder fixAllLinksToWorkLocally(StringBuilder html, TpbsProperties properties) {
         new StringBuilder(
                 html.toString()
                         .replace("/torrent/", "${properties.tpbUrl}/torrent/")
@@ -42,7 +37,7 @@ class TableRowWriter {
         )
     }
 
-    private void writeResultsPageHtmlToDisk(StringBuilder resultPageHtml) {
+    private void writeResultsPageHtmlToDisk(StringBuilder resultPageHtml, TpbsProperties properties) {
         resultsPageFile = new File(properties.dataDirectory, "/results/TPBS Results Page - " + properties.uniqueIdentifierForFilenames.call() + ".htm")
         FileUtils.writeStringToFile(resultsPageFile, resultPageHtml.toString());
     }

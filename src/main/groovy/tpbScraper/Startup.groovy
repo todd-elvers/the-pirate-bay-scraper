@@ -44,6 +44,7 @@ class Startup {
 
                 panel(id: 'buttonContainer', constraints: BorderLayout.SOUTH) {
                     button(text: 'Scrape', actionPerformed: {
+                        dispose()
                         tpbScraperLogic(tpbsProperties)
                     })
                 }

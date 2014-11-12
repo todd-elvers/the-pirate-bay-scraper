@@ -15,7 +15,7 @@ class ScraperStatusPrinter {
                     Number of pages to crawl back: ${properties.numPagesToCrawl}
 
                 Crawling...
-            """
+            """.stripIndent()
             print "Reading page ${numPagesDownloaded + 1}...\r".padRight(19)
         } else {
             print "Reading page ${numPagesDownloaded + 1}...\r".padRight(19)

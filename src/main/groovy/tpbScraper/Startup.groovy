@@ -17,7 +17,7 @@ class Startup {
 
     //TODO: Add input validation & validation messages
     //TODO: Move this to its own class
-    private static void promptUserForInputAndWhenScrapeIsPressed(Closure tpbScraperLogic){
+    private static void promptUserForInputAndWhenScrapeIsPressed(Closure tpbScraperEngine){
         TpbsProperties tpbsProperties = new TpbsProperties()
         new SwingBuilder().edt {
             lookAndFeel 'system'
@@ -25,7 +25,7 @@ class Startup {
             frame(id: 'mainWindow', title: 'The Pirate Bay Scraper (TPBS)', size: [300, 180], locationRelativeTo: null, defaultCloseOperation: JFrame.EXIT_ON_CLOSE, show: true, resizable: false) {
                 borderLayout()
 
-                panel(id: 'inputFields', constraints: BorderLayout.CENTER, border: compoundBorder([emptyBorder(10), titledBorder('Options')])) {
+                panel(id: 'inputFields', constraints: BorderLayout.CENTER, border: compoundBorder([emptyBorder(10), titledBorder('Scrape Options')])) {
                     tableLayout() {
                         tr {
                             td { label("Media type:   ", horizontalAlignment: SwingConstants.CENTER) }
@@ -45,11 +45,10 @@ class Startup {
                 panel(id: 'buttonContainer', constraints: BorderLayout.SOUTH) {
                     button(text: 'Scrape', actionPerformed: {
                         dispose()
-                        tpbScraperLogic(tpbsProperties)
+                        tpbScraperEngine(tpbsProperties)
                     })
                 }
 
-                // Inject GUI values into UserInput bean
                 bean(tpbsProperties,
                         seederThreshold: bind { safeParseInt(seederThresholdField.text) },
                         numPagesToCrawl: bind { safeParseInt(numPagesToCrawlField.text) },

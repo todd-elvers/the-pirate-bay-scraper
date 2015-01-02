@@ -45,7 +45,11 @@ class HtmlReader {
             }
 
             response.failure = { resp ->
-                println "[HtmlReader] Failure response while attempting to access URL \"${url}\" - HTTP Code: ${resp.statusLine.statusCode}, Reason: ${resp.statusLine.reasonPhrase}"
+                println "[HtmlReader] Failed to read \"${url}\" - HTTP Code: ${resp.statusLine.statusCode}, Reason: ${resp.statusLine.reasonPhrase}"
+                if(resp.statusLine.statusCode == 404){
+                    println "[HtmlReader] The Pirate Bay returned a 404 and appears to be down. Application shutting down."
+                    System.exit(-1)
+                }
             }
         }
 

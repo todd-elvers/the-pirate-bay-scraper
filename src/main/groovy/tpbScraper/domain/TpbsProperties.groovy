@@ -27,15 +27,15 @@ class TpbsProperties {
     /**
      * This is the directory containing folders 'results', 'static_content' and 'template'.
      * These folders contain the necessary files for rendering the results of the crawl.
-     * The default directory is %APPDATA%/TPBScraper
+     * The default directory is %TEMP%/TPBScraper
      */
-    String dataDirectory = new File(System.getenv("APPDATA"), "TPBScraper").absolutePath
+    String dataDirectory = new File(System.getenv("TEMP"), "TPBScraper").absolutePath
 
     /**
      * This function must return a uniquely identifying string, because TPBScraper will overwrite
      * a file in the case of a collision. The default unique identifier is a datetime string.
      */
-    Closure uniqueIdentifierForFilenames = {
+    Closure<String> uniqueIdentifierForFilenames = {
         return new Date().format("yyyy-MM-dd'T'HH.mm.ss")
     }
 }

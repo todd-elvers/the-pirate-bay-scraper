@@ -11,14 +11,16 @@ repositories {
 }
 
 dependencies {
-    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'){
-        exclude group: 'org.codehaus.groovy'
-    }
     compile('org.codehaus.gpars:gpars:1.2.1'){
         exclude group: 'org.codehaus.groovy'
     }
-    compile('commons-io:commons-io:2.4')
-    compile('org.codehaus.groovy:groovy-all:2.3.7')
+    compile 'org.jsoup:jsoup:1.8.2'
+    compile 'commons-io:commons-io:2.4'
+    compile 'org.codehaus.groovy:groovy-all:2.4.3'
+
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testCompile 'cglib:cglib-nodep:3.1'
+    testCompile 'org.objenesis:objenesis:2.1'
 }
 
 task buildFatJar(type: Jar, dependsOn:[':compileGroovy', ':compileJava', ':processResources']) {

@@ -26,5 +26,9 @@ When the user is ready, they press __Scrape__ and the following happens:
 
 <br/>
 
+##Installation
+
+Download the latest version [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/2.0.0/tpbs.exe).
+
 ##License
 This application has been released under the MIT License (MIT).

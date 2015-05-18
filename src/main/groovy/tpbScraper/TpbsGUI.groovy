@@ -53,7 +53,7 @@ class TpbsGUI {
                 bean(tpbsProperties,
                         seederThreshold: bind { safeParseInt(seederThresholdField.text) },
                         numPagesToCrawl: bind { safeParseInt(numPagesToCrawlField.text) },
-                        mediaType: bind { MediaType.fromString(mediaTypeField.renderer.text) }
+                        mediaType: bind { MediaType.valueOf(mediaTypeField.renderer.text) }
                 )
             }
         }

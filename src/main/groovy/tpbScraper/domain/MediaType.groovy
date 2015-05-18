@@ -67,8 +67,4 @@ public enum MediaType {
     public String getUrlCode(){
         return urlCode
     }
-
-    static MediaType fromString(String mediaTypeName){
-        values().find { it.toString() == mediaTypeName }
-    }
 }

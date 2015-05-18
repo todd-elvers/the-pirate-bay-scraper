@@ -38,6 +38,7 @@ task buildFatJar(type: Jar, dependsOn:[':compileGroovy', ':compileJava', ':proce
 
 task buildExe(type: Exec, dependsOn: [':buildFatJar']) {
     final tpbsJarFile = new File(buildDir, 'libs/tpbs.jar')
+    // TODO: Pass the appropriate command so that g2exe always ensures this is run on Java 7
     commandLine "g2exe", "-f", "$tpbsJarFile", "-xms", "256", "-xmx", "400"
 }
 

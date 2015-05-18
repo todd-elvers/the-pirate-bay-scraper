@@ -11,9 +11,9 @@ When executed, this application opens a small GUI that asks the user for 3 thing
 
 1. The [MediaType](https://github.com/todd-elvers/the-pirate-bay-scraper/blob/master/src/main/groovy/tpbScraper/domain/MediaType.groovy) they're looking for (e.g. PC_GAMES)
 2. The seeder threshold they're looking for (i.e. number of seeders a result has to have to be picked up by the scraper)
-3. The number of pages to scrape.  The 'browse torrents' feature of ThePirateBay shows you the most recent additions to
-a particular MediaType in paginated form.  This value determines how many of those paginated links to follow before stoping
-scraping.
+3. The number of pages to scrape.  (The 'browse torrents' feature of ThePirateBay shows you the most recent additions to
+a particular MediaType in paginated form.  This value determines how many of those paginated links to travel back through
+before scraping is considered complete.)
 
 After the 'Scrape' button is pressed, the application uses multi-threading to quickly scrape all relevant URLs.
 

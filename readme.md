@@ -15,11 +15,14 @@ When executed, this application opens a small GUI that asks the user for 3 thing
 a particular MediaType in paginated form.  This value determines how many of those paginated links to travel back through
 before scraping is considered complete.)
 
-After the 'Scrape' button is pressed, the application uses multi-threading to quickly scrape all relevant URLs.
+When the user is ready, they press __Scrape__ and the following happens:
 
-The results are then formatted so all links work & injected into a template that very closely resembles ThePirateBay's styles.
-
-Finally, the formatted HTML is written to a file in the system's temporary directory and that file is passed to Chrome.
+* The application uses multi-threading to quickly scrape all relevant URLs
+* The table rows for each page are merged into one large group of tr & td elements
+* The table rows are then formatted so all their links work
+* The table rows is then injected into a template that very closely resembles ThePirateBay's results page
+* The HTML is written to a file in the system's temporary directory
+* The HTML file is then passed to Chrome & the application terminates
 
 <br/>
 

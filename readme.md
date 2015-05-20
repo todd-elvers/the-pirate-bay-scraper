@@ -27,13 +27,15 @@ When the user is ready, they press __Scrape__ and the following happens:
 
 <br/>
 
-##Installation
+##How to run this
 
-Download the latest version [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/2.0.0/tpbs.exe).
+You can simply use the Windows executable [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/2.0.0/tpbs.exe). Note that the executable is rather large due to the fact that it has the entire Groovy library it needs zipped inside of it (so that one only needs Java to run the application.  If the large executable makes you wary, you can just un-zip the exectuable and look at the class files themselves.
+
+Otherwise you could simply clone the project, `cd` to the project's directory, and execute `gradlew run`.
 
 <br/>
 
-##Worthy Mentions
+##Worthy mentions
 
 * The parsing of the HTML is done with sanity thanks to [Jsoup](http://jsoup.org/) and its support for CSS selectors.
 * The HTML file that contains the scraping results is sortable due to a nice client-side tablesorting library called [jquery-tablesorter](https://github.com/christianbach/tablesorter).

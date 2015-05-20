@@ -1,6 +1,6 @@
 #the-pirate-bay-scraper (TBPS)
 
-This application scrapes ThePirateBay.se and renders the output in a local HTML page that looks almost exactly like
+This application scrapes ThePirateBay.se and renders the output in a local, sortable HTML page that looks almost exactly like
 ThePirateBay.se.
 
 <br/>

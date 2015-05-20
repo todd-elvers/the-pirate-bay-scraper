@@ -18,17 +18,28 @@ before scraping is considered complete.)
 When the user is ready, they press __Scrape__ and the following happens:
 
 * The application uses multi-threading to quickly scrape all relevant URLs
-* The table rows for each page are merged into one large group of tr & td elements
-* The table rows are then formatted so all their links work
-* The table rows is then injected into a template that very closely resembles ThePirateBay's results page
-* The HTML is written to a file in the system's temporary directory
-* The HTML file is then passed to Chrome & the application terminates
+* The `<tr>` elements on the results pages that surpass the user's provided seeder threshold are extracted
+* All gathered `<tr>` elements are merged into one large list of `<tr>` elements
+* The large list of `<tr>` elements are injected into an HTML template whose styles closely resembles ThePirateBay
+* The resulting HTML is then formatted so all the links work locally & written to a file in the system's temp directory
+* The application executes a command line operation that opens the HTML file with Chrome
+* The application terminates
 
 <br/>
 
 ##Installation
 
 Download the latest version [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/2.0.0/tpbs.exe).
+
+<br/>
+
+##Worthy Mentions
+
+* The parsing of the HTML is done with sanity thanks to [Jsoup](http://jsoup.org/) and its support for CSS selectors.
+* The HTML file that contains the scraping results is sortable due to a nice client-side tablesorting library called [jquery-tablesorter](https://github.com/christianbach/tablesorter).
+* Thanks to ThePirateBay for being awesome.
+
+<br/>
 
 ##License
 This application has been released under the MIT License (MIT).

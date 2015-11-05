@@ -1,6 +1,9 @@
 package tpbScraper.domain
 
-public enum MediaType {
+import groovy.transform.TupleConstructor
+
+@TupleConstructor
+enum MediaType {
 
     AUDIO("100"),
     AUDIO_MUSIC("101"),
@@ -58,13 +61,6 @@ public enum MediaType {
     OTHER_PHYSIBLES("605"),
     OTHER_OTHER("699")
 
-    private String urlCode
+    String urlCode
 
-    MediaType(String urlCode) {
-        this.urlCode = urlCode
-    }
-
-    public String getUrlCode(){
-        return urlCode
-    }
 }

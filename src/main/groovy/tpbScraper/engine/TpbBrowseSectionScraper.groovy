@@ -1,4 +1,6 @@
 package tpbScraper.engine
+
+import groovy.transform.TupleConstructor
 import groovyx.gpars.GParsPool
 import org.jsoup.nodes.Document
 import tpbScraper.domain.TpbsProperties
@@ -8,28 +10,28 @@ import tpbScraper.engine.html.table_row.TableRowFormatter
 import tpbScraper.engine.html.table_row.TableRowWriter
 import tpbScraper.util.PropertiesReader
 
+import static tpbScraper.engine.BrowserFileHandler.copyNecessaryFilesToDataDirIfMissing
 import static tpbScraper.engine.BrowserFileHandler.openFileInChrome
 
-class TpbBrowseSectionScraper extends TpbScraper {
+@TupleConstructor
+class TpbBrowseSectionScraper {
 
-    def htmlDocumentDownloader = new HtmlDocumentDownloader(),
-        htmlDocumentTableRowExtractor = new HtmlDocumentExtractor(),
-        tableRowFormatter = new TableRowFormatter(),
-        tableRowWriter = new TableRowWriter()
+    private htmlDocumentDownloader = new HtmlDocumentDownloader()
+    private htmlDocumentTableRowExtractor = new HtmlDocumentExtractor()
+    private tableRowFormatter = new TableRowFormatter()
+    private tableRowWriter = new TableRowWriter()
 
-    TpbBrowseSectionScraper(TpbsProperties tpbcProperties) {
-        super(tpbcProperties)
-    }
+    TpbsProperties tpbsProperties
 
-    @Override
     void scrape() {
+        copyNecessaryFilesToDataDirIfMissing(tpbsProperties.dataDirectory)
         printStartupMessage()
 
         StringBuilder tableRowsHTML = new StringBuilder()
         GParsPool.withPool {
             generateURLsToScrape().eachWithIndexParallel { String tpbURL, int index ->
                 Document htmlDocument = htmlDocumentDownloader.download(tpbURL)
-                StringBuilder tableRows = htmlDocumentTableRowExtractor.extractRowsAboveThreshold(htmlDocument, tpbcProperties.seederThreshold)
+                StringBuilder tableRows = htmlDocumentTableRowExtractor.extractRowsAboveThreshold(htmlDocument, tpbsProperties.seederThreshold)
                 tableRowsHTML.append(tableRows)
                 print "."
             }
@@ -37,8 +39,8 @@ class TpbBrowseSectionScraper extends TpbScraper {
         println "Done."
 
         if (tableRowsHTML) {
-            StringBuilder formattedHtml = tableRowFormatter.format(tableRowsHTML, tpbcProperties)
-            File outputFile = tableRowWriter.writeFormattedHtmlToFile(formattedHtml, tpbcProperties)
+            StringBuilder formattedHtml = tableRowFormatter.format(tableRowsHTML, tpbsProperties)
+            File outputFile = tableRowWriter.writeFormattedHtmlToFile(formattedHtml, tpbsProperties)
             openFileInChrome(outputFile)
         } else {
             println "No results found."
@@ -46,8 +48,8 @@ class TpbBrowseSectionScraper extends TpbScraper {
     }
 
     private List<String> generateURLsToScrape() {
-        (0 ..< tpbcProperties.numPagesToCrawl).collect { int pageNum ->
-            "${tpbcProperties.tpbUrl}/browse/${tpbcProperties.mediaType.getUrlCode()}/${pageNum}/3"
+        (0 ..< tpbsProperties.numPagesToCrawl).collect { int pageNum ->
+            "${tpbsProperties.tpbUrl}/browse/${tpbsProperties.mediaType.getUrlCode()}/${pageNum}/3"
         }
     }
 
@@ -55,9 +57,9 @@ class TpbBrowseSectionScraper extends TpbScraper {
         print """\
             TPBS - The Pirate Bay Scraper v${PropertiesReader.readAppProperty("version")}
             Settings:
-                Category: ${tpbcProperties.mediaType.toString().replaceAll("_", " > ")}
-                Seeder Threshold: ${tpbcProperties.seederThreshold}
-                Number of pages to scrape back: ${tpbcProperties.numPagesToCrawl}
+                Category: ${tpbsProperties.mediaType.toString().replaceAll("_", " > ")}
+                Seeder Threshold: ${tpbsProperties.seederThreshold}
+                Number of pages to scrape back: ${tpbsProperties.numPagesToCrawl}
 
             Scraping""".stripIndent()
     }

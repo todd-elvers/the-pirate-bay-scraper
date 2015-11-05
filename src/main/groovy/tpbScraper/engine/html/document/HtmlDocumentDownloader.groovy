@@ -7,7 +7,7 @@ import org.jsoup.nodes.Document
 import tpbScraper.domain.FailedDownloadException
 
 class HtmlDocumentDownloader {
-    private static final String TPB_RETURNED_NON_404_STATUS_CODE = "The Pirate Bay returned a 404 and appears to be down. Application shutting down."
+    private static final String TPB_404_RESPONSE_MESSAGE = "The Pirate Bay returned a 404 and appears to be down."
     private static final int NUM_TIMES_TO_RETRY_DOWNLOAD = 3
 
     Document download(String url) {
@@ -15,16 +15,22 @@ class HtmlDocumentDownloader {
     }
 
     private static Document downloadWithRetry(String url){
-        int numberOfAttempts = 0
-        while (numberOfAttempts < NUM_TIMES_TO_RETRY_DOWNLOAD) {
-            numberOfAttempts++
+        Document htmlDocument = null
+
+        int attemptCount = 0
+        while (!htmlDocument && attemptCount < NUM_TIMES_TO_RETRY_DOWNLOAD) {
+            attemptCount++
 
             try {
-                return downloadHtmlDocument(url)
+                htmlDocument = downloadHtmlDocument(url)
             } catch (ignored) {}
         }
 
-        throw new FailedDownloadException(url, NUM_TIMES_TO_RETRY_DOWNLOAD)
+        if(htmlDocument) {
+            return htmlDocument
+        } else {
+            throw new FailedDownloadException(url, NUM_TIMES_TO_RETRY_DOWNLOAD)
+        }
     }
 
     private static Document downloadHtmlDocument(String url) {
@@ -35,12 +41,9 @@ class HtmlDocumentDownloader {
                 .execute();
 
         switch(response.statusCode()){
-            case 200:
-                return response.parse()
-            case 404:
-                throw new HttpStatusException(TPB_RETURNED_NON_404_STATUS_CODE, response.statusCode(), url)
-            default:
-                throw new HttpStatusException(response.statusMessage(), response.statusCode(), url)
+            case 200: return response.parse()
+            case 404: throw new HttpStatusException(TPB_404_RESPONSE_MESSAGE, response.statusCode(), url)
+            default : throw new HttpStatusException(response.statusMessage(), response.statusCode(), url)
         }
     }
 }

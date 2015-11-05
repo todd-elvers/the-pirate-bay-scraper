@@ -2,18 +2,20 @@ package tpbScraper
 import groovy.swing.SwingBuilder
 import tpbScraper.domain.MediaType
 import tpbScraper.domain.TpbsProperties
-import tpbScraper.engine.TpbScraper
+import tpbScraper.engine.TpbBrowseSectionScraper
 
 import javax.swing.*
 import java.awt.*
 
+//TODO: Add input validation & validation messages to this class
 class TpbsGUI {
 
-    public Class<? extends TpbScraper> scraperEngineToUse
+    // TODO: Uncomment these when multiple scrape engines exist
+//    Class<? extends TpbScraper> scraperEngineToUse
 
-    //TODO: Add input validation & validation messages
     void promptUserAndWaitForScrapeToBePressed(){
-        assert scraperEngineToUse : "Please specify which TpbScraperEngine you wish to use and run the app again."
+        // TODO: Uncomment these when multiple scrape engines exist
+//        assert scraperEngineToUse : "Please specify which TpbScraperEngine you wish to use and run the app again."
 
         TpbsProperties tpbsProperties = new TpbsProperties()
         new SwingBuilder().edt {
@@ -44,9 +46,12 @@ class TpbsGUI {
                         dispose()
 
                         // Pass the tpbsProperties set by the user to the scraper engine & begin scraping
-                        scraperEngineToUse
-                                .newInstance(tpbsProperties)
-                                .scrape()
+                        new TpbBrowseSectionScraper(tpbsProperties).scrape()
+
+                        // TODO: Uncomment these when multiple scrape engines exist
+//                        scraperEngineToUse
+//                                .newInstance(tpbsProperties)
+//                                .scrape()
                     })
                 }
 

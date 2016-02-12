@@ -27,9 +27,10 @@ class TpbsProperties {
     /**
      * This is the directory containing folders 'results', 'static_content' and 'template'.
      * These folders contain the necessary files for rendering the results of the crawl.
-     * The default directory is %TEMP%/TPBScraper
+     * The default directory is in <java-temp-dir>/TPBScraper
+     * {@link java.io.File.TempDirectory#tmpdir}
      */
-    String dataDirectory = new File(System.getenv("TEMP"), "TPBScraper").absolutePath
+    String dataDirectory = new File(File.createTempDir(), "TPBScraper").absolutePath
 
     /**
      * This function must return a uniquely identifying string, because TPBScraper will overwrite

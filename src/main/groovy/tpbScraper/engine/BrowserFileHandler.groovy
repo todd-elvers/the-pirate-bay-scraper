@@ -1,15 +1,16 @@
 package tpbScraper.engine
 import org.apache.commons.io.FileUtils
 
+import java.awt.Desktop
+
 class BrowserFileHandler {
 
     /**
-     * Opens a given file locally in Chrome.  This method assumes you
-     * have 'chrome' on your path and are running on a Windows machine.
+     * Opens a given file in the System's default browser.
      */
-    static void openFileInChrome(File resultsPageFilePath) {
-        println "Opening \"${resultsPageFilePath.name}\" with Chrome."
-        "cmd /c start chrome \"${resultsPageFilePath.absolutePath}\"".execute()
+    static void openFileInDefaultBrowser(File resultsPageFile) {
+        println "Opening \"${resultsPageFile.name}\" with this system's default browser."
+        Desktop.getDesktop().browse(resultsPageFile.toURI());
     }
 
     /**

@@ -11,7 +11,7 @@ import tpbScraper.engine.html.table_row.TableRowWriter
 import tpbScraper.util.PropertiesReader
 
 import static tpbScraper.engine.BrowserFileHandler.copyNecessaryFilesToDataDirIfMissing
-import static tpbScraper.engine.BrowserFileHandler.openFileInChrome
+import static tpbScraper.engine.BrowserFileHandler.openFileInDefaultBrowser
 
 @TupleConstructor
 class TpbBrowseSectionScraper {
@@ -41,7 +41,7 @@ class TpbBrowseSectionScraper {
         if (tableRowsHTML) {
             StringBuilder formattedHtml = tableRowFormatter.format(tableRowsHTML, tpbsProperties)
             File outputFile = tableRowWriter.writeFormattedHtmlToFile(formattedHtml, tpbsProperties)
-            openFileInChrome(outputFile)
+            openFileInDefaultBrowser(outputFile)
         } else {
             println "No results found."
         }

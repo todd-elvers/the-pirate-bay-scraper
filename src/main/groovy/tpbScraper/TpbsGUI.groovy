@@ -10,18 +10,14 @@ import java.awt.*
 //TODO: Add input validation & validation messages to this class
 class TpbsGUI {
 
-    // TODO: Uncomment these when multiple scrape engines exist
-//    Class<? extends TpbScraper> scraperEngineToUse
-
     void promptUserAndWaitForScrapeToBePressed(){
-        // TODO: Uncomment these when multiple scrape engines exist
-//        assert scraperEngineToUse : "Please specify which TpbScraperEngine you wish to use and run the app again."
-
         TpbsProperties tpbsProperties = new TpbsProperties()
+
+        // Build the GUI on the Event Dispatch Thread
         new SwingBuilder().edt {
             lookAndFeel 'system'
 
-            frame(id: 'mainWindow', title: 'The Pirate Bay Scraper (TPBS)', size: [300, 180], locationRelativeTo: null, defaultCloseOperation: JFrame.EXIT_ON_CLOSE, show: true, resizable: false) {
+            frame(id: 'mainWindow', title: 'ThePirateBay Scraper (TPBS)', size: [300, 180], locationRelativeTo: null, defaultCloseOperation: JFrame.EXIT_ON_CLOSE, show: true, resizable: false) {
                 borderLayout()
 
                 panel(id: 'inputFields', constraints: BorderLayout.CENTER, border: compoundBorder([emptyBorder(10), titledBorder('Scrape Options')])) {
@@ -47,11 +43,6 @@ class TpbsGUI {
 
                         // Pass the tpbsProperties set by the user to the scraper engine & begin scraping
                         new TpbBrowseSectionScraper(tpbsProperties).scrape()
-
-                        // TODO: Uncomment these when multiple scrape engines exist
-//                        scraperEngineToUse
-//                                .newInstance(tpbsProperties)
-//                                .scrape()
                     })
                 }
 

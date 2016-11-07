@@ -5,15 +5,18 @@ import tpbScraper.domain.TpbsProperties
 
 class TableRowWriter {
 
-    File writeFormattedHtmlToFile(StringBuilder formattedHtml, TpbsProperties tpbsProperties) {
+    File writeFormattedHtmlToFile(String formattedHtml, TpbsProperties tpbsProperties) {
         println "Writing results page to disk."
         File outputFile = generateOutputFile(tpbsProperties)
-        FileUtils.writeStringToFile(outputFile, formattedHtml.toString());
+        FileUtils.writeStringToFile(outputFile, formattedHtml);
         return outputFile
     }
 
     File generateOutputFile(TpbsProperties tpbsProperties){
-        return new File(tpbsProperties.dataDirectory, "/results/TPBS Results Page - " + tpbsProperties.uniqueIdentifierForFilenames.call() + ".htm")
+        return new File(
+                tpbsProperties.dataDirectory,
+                "/results/TPBS Results Page - " + tpbsProperties.uniqueIdentifierForFilenames.call() + ".htm"
+        )
     }
 
 }

@@ -1,5 +1,6 @@
 package tpbScraper.domain
 
+// TODO: Create a way to reference this statically?  It should be immutable if that's the case.
 class TpbsProperties {
 
     /**

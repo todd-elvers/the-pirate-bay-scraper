@@ -6,6 +6,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import tpbScraper.domain.FailedDownloadException
 
+//TODO: Rewrite this, it's hard to read
 class HtmlDocumentDownloader {
     private static final String TPB_404_RESPONSE_MESSAGE = "The Pirate Bay returned a 404 and appears to be down."
     private static final int NUM_TIMES_TO_RETRY_DOWNLOAD = 3

@@ -28,6 +28,7 @@ class BrowserFileHandler {
         }
     }
 
+    //TODO: Convert to Spring way
     private static File getResourceAsFile(String resourceName) {
         new File(Thread.currentThread().getContextClassLoader().getResource(resourceName).file)
     }

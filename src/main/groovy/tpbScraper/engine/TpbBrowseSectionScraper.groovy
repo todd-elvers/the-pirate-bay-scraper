@@ -1,6 +1,5 @@
 package tpbScraper.engine
 
-import groovy.transform.TupleConstructor
 import groovyx.gpars.GParsPool
 import org.jsoup.nodes.Document
 import tpbScraper.domain.TpbsProperties
@@ -13,7 +12,6 @@ import tpbScraper.util.PropertiesReader
 import static tpbScraper.engine.BrowserFileHandler.copyNecessaryFilesToDataDirIfMissing
 import static tpbScraper.engine.BrowserFileHandler.openFileInDefaultBrowser
 
-@TupleConstructor
 class TpbBrowseSectionScraper {
 
     private htmlDocumentDownloader = new HtmlDocumentDownloader()
@@ -23,11 +21,17 @@ class TpbBrowseSectionScraper {
 
     TpbsProperties tpbsProperties
 
-    void scrape() {
-        copyNecessaryFilesToDataDirIfMissing(tpbsProperties.dataDirectory)
+    TpbBrowseSectionScraper(TpbsProperties tpbsProperties) {
+        this.tpbsProperties = tpbsProperties
         printStartupMessage()
+        copyNecessaryFilesToDataDirIfMissing(tpbsProperties.dataDirectory)
+    }
 
+    void scrape() {
         StringBuilder tableRowsHTML = new StringBuilder()
+
+        //TODO: Fix the Windows bug causing this to write to multiple lines
+        print "Scraping"
         GParsPool.withPool {
             generateURLsToScrape().eachWithIndexParallel { String tpbURL, int index ->
                 Document htmlDocument = htmlDocumentDownloader.download(tpbURL)
@@ -38,8 +42,9 @@ class TpbBrowseSectionScraper {
         }
         println "Done."
 
+
         if (tableRowsHTML) {
-            StringBuilder formattedHtml = tableRowFormatter.format(tableRowsHTML, tpbsProperties)
+            String formattedHtml = tableRowFormatter.format(tableRowsHTML, tpbsProperties)
             File outputFile = tableRowWriter.writeFormattedHtmlToFile(formattedHtml, tpbsProperties)
             openFileInDefaultBrowser(outputFile)
         } else {
@@ -61,6 +66,6 @@ class TpbBrowseSectionScraper {
                 Seeder Threshold: ${tpbsProperties.seederThreshold}
                 Number of pages to scrape back: ${tpbsProperties.numPagesToCrawl}
 
-            Scraping""".stripIndent()
+        """.stripIndent()
     }
 }

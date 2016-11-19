@@ -52,5 +52,5 @@ task copyExeToSysTools(type: Copy) {
     }
 
     from "${buildDir}/libs/tpbs.exe"
-    into "${System.getenv("SYS_TOOLS")}"
+    into "${System.getenv("SYSTEM_TOOLS")}"
 }

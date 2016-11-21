@@ -1,8 +1,11 @@
 package tpbScraper.engine.html.table_row
 
 import org.apache.commons.io.FileUtils
+import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import tpbScraper.domain.TpbsProperties
 
+@Component
 class TableRowWriter {
 
     File writeFormattedHtmlToFile(String formattedHtml, TpbsProperties tpbsProperties) {

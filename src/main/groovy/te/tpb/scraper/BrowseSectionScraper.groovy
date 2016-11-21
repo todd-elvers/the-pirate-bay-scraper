@@ -1,7 +1,9 @@
-package tpbScraper.engine
+package te.tpb.scraper
 
 import groovyx.gpars.GParsPool
 import org.jsoup.nodes.Document
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Component
 import tpbScraper.domain.TpbsProperties
 import tpbScraper.engine.html.document.HtmlDocumentDownloader
 import tpbScraper.engine.html.document.HtmlDocumentExtractor
@@ -11,20 +13,21 @@ import tpbScraper.engine.html.table_row.TableRowWriter
 import static tpbScraper.engine.BrowserFileHandler.copyNecessaryFilesToDataDirIfMissing
 import static tpbScraper.engine.BrowserFileHandler.openFileInDefaultBrowser
 
-class TpbBrowseSectionScraper {
+@Component
+class BrowseSectionScraper {
 
-    private htmlDocumentDownloader = new HtmlDocumentDownloader()
-    private htmlDocumentTableRowExtractor = new HtmlDocumentExtractor()
-    private tableRowFormatter = new TableRowFormatter()
-    private tableRowWriter = new TableRowWriter()
+    @Autowired protected HtmlDocumentDownloader htmlDocumentDownloader
+    @Autowired protected HtmlDocumentExtractor htmlDocumentTableRowExtractor
+    @Autowired protected TableRowFormatter tableRowFormatter
+    @Autowired protected TableRowWriter tableRowWriter
 
-    TpbsProperties tpbsProperties
+    protected TpbsProperties tpbsProperties
 
-    TpbBrowseSectionScraper(TpbsProperties tpbsProperties) {
-        this.tpbsProperties = tpbsProperties
-        printStartupMessage()
-        copyNecessaryFilesToDataDirIfMissing(tpbsProperties.dataDirectory)
-    }
+//    BrowseSectionScraper(TpbsProperties tpbsProperties) {
+//        this.tpbsProperties = tpbsProperties
+//        printStartupMessage()
+//        copyNecessaryFilesToDataDirIfMissing(tpbsProperties.dataDirectory)
+//    }
 
     void scrape() {
         StringBuilder tableRowsHTML = new StringBuilder()
@@ -67,4 +70,5 @@ class TpbBrowseSectionScraper {
 
         """.stripIndent()
     }
+
 }

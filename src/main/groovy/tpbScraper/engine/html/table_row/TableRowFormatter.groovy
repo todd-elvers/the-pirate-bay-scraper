@@ -1,9 +1,12 @@
 package tpbScraper.engine.html.table_row
 
 import org.apache.commons.io.FileUtils
+import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import tpbScraper.domain.TpbsProperties
 
 // TODO: This is so simple, maybe merge the formatter and writer?
+@Component
 class TableRowFormatter {
     private static final String RESULTS_TEMPLATE_FILENAME = "/template/TPBS Results Page - Template.htm"
 

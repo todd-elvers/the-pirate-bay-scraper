@@ -3,7 +3,10 @@ package tpbScraper.engine.html.document
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
+import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
+@Component
 class HtmlDocumentExtractor {
 
     StringBuilder extractRowsAboveThreshold(Document document, int seederCountThreshold){

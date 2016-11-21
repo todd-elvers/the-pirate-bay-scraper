@@ -8,9 +8,10 @@ import javax.swing.*
 import java.awt.*
 
 //TODO: Add input validation & validation messages to this class
-class TpbsGUI {
+@org.springframework.stereotype.Component
+class BrowseScraperGui {
 
-    void promptUserAndWaitForScrapeToBePressed(){
+    void promptUserToScrape(Closure taskToExecuteAfterScrapeIsPressed){
         TpbsProperties tpbsProperties = new TpbsProperties()
 
         // Build the GUI on the Event Dispatch Thread
@@ -42,7 +43,7 @@ class TpbsGUI {
                         dispose()
 
                         // Pass the tpbsProperties set by the user to the scraper engine & begin scraping
-                        new TpbBrowseSectionScraper(tpbsProperties).scrape()
+                        taskToExecuteAfterScrapeIsPressed(tpbsProperties)
                     })
                 }
 

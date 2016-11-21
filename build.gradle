@@ -1,56 +1,43 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE")
+    }
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'java'
 apply plugin: 'groovy'
-apply plugin: 'application'
-apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-applicationName = 'The Pirate Bay Scraper'
-mainClassName = 'tpbScraper.Startup'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
 
+
 dependencies {
+    compile 'org.springframework.boot:spring-boot-starter'
     compile('org.codehaus.gpars:gpars:1.2.1'){
         exclude group: 'org.codehaus.groovy'
     }
     compile 'org.jsoup:jsoup:1.8.2'
     compile 'commons-io:commons-io:2.4'
-    compile 'org.codehaus.groovy:groovy-all:2.4.3'
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
 
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+
+    // Spock framework
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-    testCompile 'cglib:cglib-nodep:3.1'
-    testCompile 'org.objenesis:objenesis:2.1'
+    testCompile 'cglib:cglib-nodep:3.2.4'
+    testCompile 'org.objenesis:objenesis:2.4'
 }
 
-task buildFatJar(type: Jar, dependsOn:[':compileGroovy', ':compileJava', ':processResources']) {
-    description 'Copies all classes, resources, and jar dependencies into one executable jar'
-    from 'gradle.properties'
-    from files(sourceSets.main.output.classesDir)
-    from files(sourceSets.main.output.resourcesDir)
-    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
-    archiveName 'tpbs.jar'
-
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
-}
-
-task buildExe(type: Exec, dependsOn: [':buildFatJar']) {
-    final tpbsJarFile = new File(buildDir, 'libs/tpbs.jar')
-    // TODO: Pass the appropriate command so that g2exe always ensures this is run on Java 7
-    commandLine "g2exe", "-f", "$tpbsJarFile", "-xms", "256", "-xmx", "400"
-}
-
-task copyExeToSysTools(type: Copy) {
-    doFirst {
-        final tpbsExeFile = new File(buildDir, "libs/tpbs.exe")
-        if(!tpbsExeFile.exists()){
-            println "The file '$tpbsExeFile.name' is missing from the build/libs directory. Please build again."
-            return null
-        }
-    }
-
-    from "${buildDir}/libs/tpbs.exe"
-    into "${System.getenv("SYSTEM_TOOLS")}"
+jar {
+    baseName = 'the-pirate-bay-scraper'
+    version = "$version"
 }

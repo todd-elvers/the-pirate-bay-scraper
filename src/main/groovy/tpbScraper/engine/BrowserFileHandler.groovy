@@ -1,8 +1,11 @@
 package tpbScraper.engine
 import org.apache.commons.io.FileUtils
+import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 
 import java.awt.Desktop
 
+@Component
 class BrowserFileHandler {
 
     /**

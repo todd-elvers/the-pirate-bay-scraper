@@ -2,11 +2,14 @@ package tpbScraper.engine.html.document;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Predicate;
 
 // TODO: Replace the Groovy version w/ this class
 // TODO: Merge downloader & extractor into one?  Maybe make a parent class with both or something?
+@Component
 class HtmlDocumentExtractorJava {
 
     private static final String ALL_NON_DIGITS_REGEX = "[^0-9]";

@@ -33,7 +33,7 @@ class ApplicationRunner implements CommandLineRunner {
 
     private static void printStartupMessage(TpbsProperties tpbsProperties) {
         print """\
-            TPBS - The Pirate Bay Scraper v2.0.1-SNAPSHOT
+            TPBS - The Pirate Bay Scraper v3.0.0
             Settings:
                 Category: ${tpbsProperties.mediaType.toString().replaceAll("_", " > ")}
                 Seeder Threshold: ${tpbsProperties.seederThreshold}

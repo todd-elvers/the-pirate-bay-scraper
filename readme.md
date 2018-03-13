@@ -9,7 +9,7 @@ ThePirateBay.
 
 When executed, this application opens a small GUI that asks the user for 3 things:
 
-1. The [MediaType](https://github.com/todd-elvers/the-pirate-bay-scraper/blob/master/src/main/groovy/tpbScraper/domain/MediaType.groovy) they're looking for (e.g. PC_GAMES)
+1. The [MediaType](https://github.com/todd-elvers/the-pirate-bay-scraper/blob/master/src/main/groovy/te/tpb/scraper/domain/MediaType.groovy) they're looking for (e.g. PC_GAMES)
 2. The seeder threshold they're looking for (i.e. number of seeders a result has to have to be picked up by the scraper)
 3. The number of pages to scrape.  (The 'browse torrents' feature of ThePirateBay shows you the most recent additions to
 a particular MediaType in paginated form.  This value determines how many of those paginated links to travel back through
@@ -31,9 +31,11 @@ When the user is ready, they press __Scrape__ and the following happens:
 
 You can simply use the Windows executable [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/3.0.0/tpbs.exe). Note that the executable is rather large due to the fact that it has the entire Groovy library it needs zipped inside of it so that one only needs Java to run the application.  If the large executable makes you wary, you can just un-zip the exectuable and look at the class files themselves.
 
-Otherwise you could download the JAR and execute it with `java -jar <JAR-name>`.
+### Or
+You could download the JAR and execute it with `java -jar <JAR-name>`.
 
-Otherwise you could simply clone the project and execute `./gradlew bootRun` from the root.
+### Or
+You could clone the project and execute `./gradlew bootRun` from the root.
 
 <br/>
 

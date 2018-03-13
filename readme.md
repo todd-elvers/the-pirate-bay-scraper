@@ -47,5 +47,5 @@ You could clone the project and execute `./gradlew bootRun` from the root.
 
 <br/>
 
-##License
+## License
 This application has been released under the MIT License (MIT).

@@ -1,11 +1,11 @@
-#the-pirate-bay-scraper (TPBS)
+# the-pirate-bay-scraper (TPBS)
 
 This application scrapes ThePirateBay.se and renders the output in a local, sortable HTML page that looks almost exactly like
 ThePirateBay.se.
 
 <br/>
 
-##How it works
+## How it works
 
 When executed, this application opens a small GUI that asks the user for 3 things:
 
@@ -27,15 +27,17 @@ When the user is ready, they press __Scrape__ and the following happens:
 
 <br/>
 
-##How to run this
+## How to run this
 
-You can simply use the Windows executable [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/2.0.0/tpbs.exe). Note that the executable is rather large due to the fact that it has the entire Groovy library it needs zipped inside of it so that one only needs Java to run the application.  If the large executable makes you wary, you can just un-zip the exectuable and look at the class files themselves.
+You can simply use the Windows executable [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/3.0.0/tpbs.exe). Note that the executable is rather large due to the fact that it has the entire Groovy library it needs zipped inside of it so that one only needs Java to run the application.  If the large executable makes you wary, you can just un-zip the exectuable and look at the class files themselves.
 
-Otherwise you could simply clone the project, `cd` to the project's directory, and execute `gradlew bootRun`.
+Otherwise you could download the JAR and execute it with `java -jar <JAR-name>`.
+
+Otherwise you could simply clone the project and execute `./gradlew bootRun` from the root.
 
 <br/>
 
-##Worthy mentions
+## Worthy mentions
 
 * The parsing of the HTML is done with sanity thanks to [Jsoup](http://jsoup.org/) and its support for CSS selectors.
 * The HTML file that contains the scraping results is sortable due to a nice client-side tablesorting library called [jquery-tablesorter](https://github.com/christianbach/tablesorter).

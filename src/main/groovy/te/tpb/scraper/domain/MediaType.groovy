@@ -1,4 +1,4 @@
-package tpbScraper.domain
+package te.tpb.scraper.domain
 
 import groovy.transform.TupleConstructor
 

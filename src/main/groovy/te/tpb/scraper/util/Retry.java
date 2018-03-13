@@ -1,34 +1,34 @@
 package te.tpb.scraper.util;
 
 import groovy.lang.Closure;
-import te.tpb.scraper.domain.RetryFailedException;
 
 public class Retry {
 
-    public static <T> T retryOrThrow(int maxAttempts, Closure<T> closure) throws RetryFailedException {
+    private static final int MS_TO_SLEEP_AFTER_EXCEPTION = 2_000;
+
+    public static <T> T retryOrIgnore(int maxAttempts, Closure<T> closure) {
         T result = null;
         int attemptCount = 0;
 
-        Throwable capturedException = null;
         while(result == null && attemptCount < maxAttempts) {
             attemptCount++;
 
             try {
                 result = closure.call();
             } catch (Throwable exception) {
-                capturedException = exception;
+                sleep();
             }
         }
 
-        if(capturedException != null) {
-            throw new RetryFailedException(
-                    capturedException.getMessage(),
-                    capturedException.getCause(),
-                    maxAttempts
-            );
-        }
-
         return result;
+    }
+
+    private static void sleep() {
+        try {
+            Thread.sleep(MS_TO_SLEEP_AFTER_EXCEPTION);
+        }catch(Throwable ignored) {
+            // NO-OP
+        }
     }
 
 }

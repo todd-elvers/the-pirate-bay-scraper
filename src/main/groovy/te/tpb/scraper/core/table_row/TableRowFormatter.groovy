@@ -1,9 +1,8 @@
-package tpbScraper.engine.html.table_row
+package te.tpb.scraper.core.table_row
 
 import org.apache.commons.io.FileUtils
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Service
-import tpbScraper.domain.TpbsProperties
+import te.tpb.scraper.domain.TpbsProperties
 
 // TODO: This is so simple, maybe merge the formatter and writer?
 @Component

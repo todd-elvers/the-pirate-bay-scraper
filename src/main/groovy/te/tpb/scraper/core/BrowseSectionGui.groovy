@@ -1,15 +1,16 @@
-package tpbScraper
+package te.tpb.scraper.core
 import groovy.swing.SwingBuilder
-import tpbScraper.domain.MediaType
-import tpbScraper.domain.TpbsProperties
-import tpbScraper.engine.TpbBrowseSectionScraper
+import te.tpb.scraper.domain.MediaType
+import te.tpb.scraper.domain.TpbsProperties
+import org.springframework.stereotype.Component
 
+import javax.annotation.PostConstruct
 import javax.swing.*
 import java.awt.*
 
 //TODO: Add input validation & validation messages to this class
-@org.springframework.stereotype.Component
-class BrowseScraperGui {
+@Component
+class BrowseSectionGui {
 
     void promptUserToScrape(Closure taskToExecuteAfterScrapeIsPressed){
         TpbsProperties tpbsProperties = new TpbsProperties()
@@ -54,6 +55,11 @@ class BrowseScraperGui {
                 )
             }
         }
+    }
+
+    @PostConstruct
+    private void ensureHeadlessModeIsOff() {
+        System.setProperty('java.awt.headless', 'false')
     }
 
     private static Integer safeParseInt(String fieldValue){

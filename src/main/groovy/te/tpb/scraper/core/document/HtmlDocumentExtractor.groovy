@@ -1,10 +1,9 @@
-package tpbScraper.engine.html.document
+package te.tpb.scraper.core.document
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Service
 
 @Component
 class HtmlDocumentExtractor {

@@ -1,6 +1,5 @@
-package tpbScraper.domain
+package te.tpb.scraper.domain
 
-// TODO: Create a way to reference this statically?  It should be immutable if that's the case.
 class TpbsProperties {
 
     /**
@@ -23,7 +22,7 @@ class TpbsProperties {
     /**
      * The Pirate Bay's fully qualified URL
      */
-    String tpbUrl = "http://www.thepiratebay.se"
+    String tpbUrl = "http://www.thepiratebay.org"
 
     /**
      * This is the directory containing folders 'results', 'static_content' and 'template'.
@@ -40,4 +39,5 @@ class TpbsProperties {
     Closure<String> uniqueIdentifierForFilenames = {
         return new Date().format("yyyy-MM-dd'T'HH.mm.ss")
     }
+
 }

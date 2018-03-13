@@ -1,17 +1,19 @@
-package tpbScraper.engine
+package te.tpb.scraper.util
 import org.apache.commons.io.FileUtils
+import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 
 import java.awt.Desktop
 
 @Component
+@SuppressWarnings("GrMethodMayBeStatic")
 class BrowserFileHandler {
 
     /**
      * Opens a given file in the System's default browser.
      */
-    static void openFileInDefaultBrowser(File resultsPageFile) {
+    void openFileInDefaultBrowser(File resultsPageFile) {
         println "Opening \"${resultsPageFile.name}\" with this system's default browser."
         Desktop.getDesktop().browse(resultsPageFile.toURI());
     }
@@ -23,16 +25,16 @@ class BrowserFileHandler {
      *
      * @param dataDirectoryPath the path to the directory where TPBS-related files are stored
      */
-    static void copyNecessaryFilesToDataDirIfMissing(String dataDirectoryPath){
+    void copyTemplateFilesToDataDirIfMissing(String dataDirectoryPath){
         File staticContentDir = new File(dataDirectoryPath, "/static_content/")
         File templateDir = new File(dataDirectoryPath, "/template/")
         if(!staticContentDir.exists() || !templateDir.exists()){
+            println "Writing temp files to $dataDirectoryPath"
             FileUtils.copyDirectory(getResourceAsFile("tpbs_files"), new File(dataDirectoryPath))
         }
     }
 
-    //TODO: Convert to Spring way
     private static File getResourceAsFile(String resourceName) {
-        new File(Thread.currentThread().getContextClassLoader().getResource(resourceName).file)
+        return new ClassPathResource(resourceName).file
     }
 }

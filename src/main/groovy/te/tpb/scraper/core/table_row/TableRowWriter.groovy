@@ -1,9 +1,8 @@
-package tpbScraper.engine.html.table_row
+package te.tpb.scraper.core.table_row
 
 import org.apache.commons.io.FileUtils
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Service
-import tpbScraper.domain.TpbsProperties
+import te.tpb.scraper.domain.TpbsProperties
 
 @Component
 class TableRowWriter {
@@ -11,7 +10,7 @@ class TableRowWriter {
     File writeFormattedHtmlToFile(String formattedHtml, TpbsProperties tpbsProperties) {
         println "Writing results page to disk."
         File outputFile = generateOutputFile(tpbsProperties)
-        FileUtils.writeStringToFile(outputFile, formattedHtml);
+        FileUtils.writeStringToFile(outputFile, formattedHtml)
         return outputFile
     }
 

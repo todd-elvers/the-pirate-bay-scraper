@@ -21,8 +21,8 @@ When the user is ready, they press __Scrape__ and the following happens:
 * The `<tr>` elements on the results pages that surpass the user's provided seeder threshold are extracted
 * All gathered `<tr>` elements are merged into one large list of `<tr>` elements
 * The large list of `<tr>` elements are injected into an HTML template whose styles closely resembles ThePirateBay
-* The resulting HTML is then formatted so all the links work locally & written to a file in the system's temp directory
-* The application executes a command line operation that opens the HTML file with Chrome
+* The resulting HTML is then formatted so all the links work locally & then written to a file in the system's temp directory
+* That file is then opened using the system's default browser
 * The application terminates
 
 <br/>

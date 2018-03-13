@@ -29,7 +29,6 @@ class BrowserFileHandler {
         File staticContentDir = new File(dataDirectoryPath, "/static_content/")
         File templateDir = new File(dataDirectoryPath, "/template/")
         if(!staticContentDir.exists() || !templateDir.exists()){
-            println "Writing temp files to $dataDirectoryPath"
             FileUtils.copyDirectory(getResourceAsFile("tpbs_files"), new File(dataDirectoryPath))
         }
     }

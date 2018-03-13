@@ -31,7 +31,7 @@ When the user is ready, they press __Scrape__ and the following happens:
 
 You can simply use the Windows executable [here](https://github.com/todd-elvers/the-pirate-bay-scraper/releases/download/2.0.0/tpbs.exe). Note that the executable is rather large due to the fact that it has the entire Groovy library it needs zipped inside of it so that one only needs Java to run the application.  If the large executable makes you wary, you can just un-zip the exectuable and look at the class files themselves.
 
-Otherwise you could simply clone the project, `cd` to the project's directory, and execute `gradlew run`.
+Otherwise you could simply clone the project, `cd` to the project's directory, and execute `gradlew bootRun`.
 
 <br/>
 

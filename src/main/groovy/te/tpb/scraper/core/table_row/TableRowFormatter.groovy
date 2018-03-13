@@ -7,7 +7,7 @@ import te.tpb.scraper.domain.TpbsProperties
 // TODO: This is so simple, maybe merge the formatter and writer?
 @Component
 class TableRowFormatter {
-    private static final String RESULTS_TEMPLATE_FILENAME = "/template/TPBS Results Page - Template.htm"
+    private static final String RESULTS_TEMPLATE_FILENAME = "template/TPBS Results Page - Template.htm"
 
     String format(StringBuilder tableRowsHtml, TpbsProperties tpbsProperties) {
         String resultsPageTemplate = getResultsPageTemplate(tpbsProperties)

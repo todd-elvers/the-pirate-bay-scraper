@@ -41,3 +41,7 @@ jar {
     baseName = 'the-pirate-bay-scraper'
     version = "$version"
 }
+
+springBoot {
+    executable = true
+}

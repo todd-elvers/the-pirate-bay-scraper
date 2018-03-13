@@ -1,4 +1,4 @@
-package te.tpb.scraper.config
+package te.tpb.scraper
 
 import groovy.transform.CompileStatic
 import org.springframework.boot.SpringApplication
